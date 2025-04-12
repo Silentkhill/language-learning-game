@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>Language Learning Game</h1>
+            <div class="user-info">
+                <span id="username">Player</span>
+                <span id="score">Score: 0</span>
+                <span id="level">Level: 1</span>
+            </div>
+        </header>
+        
+        <main>
+            <div class="game-scene">
+                <div id="scene-image"></div>
+                <div class="challenge-container">
+                    <h2 id="challenge-title">Challenge</h2>
+                    <p id="challenge-description">Translate the following phrase:</p>
+                    <div id="challenge-content"></div>
+                </div>
+            </div>
+            
+            <div class="user-input">
+                <input type="text" id="answer-input" placeholder="Type your answer here...">
+                <div class="controls">
+                    <button id="submit-btn">Submit</button>
+                    <button id="hint-btn">Hint</button>
+                    <button id="skip-btn">Skip</button>
+                </div>
+            </div>
+            
+            <div id="feedback" class="feedback hidden"></div>
+        </main>
+        
+        <div id="level-complete" class="modal hidden">
+            <div class="modal-content">
+                <h2>Level Complete!</h2>
+                <p>You have earned <span id="points-earned">0</span> points.</p>
+                <button id="next-level-btn">Next Level</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
