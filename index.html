@@ -3,51 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Learning Game</title>
+    <title>Language Learning Adventure</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
-    <div class="game-container">
-        <header>
-            <h1>Language Learning Game</h1>
-            <div class="user-info">
-                <span id="username">Player</span>
-                <span id="score">Score: 0</span>
-                <span id="level">Level: 1</span>
+    <!-- Character Creation Screen -->
+    <div id="character-creation" class="screen active">
+        <div class="container">
+            <h1 class="game-title animate__animated animate__fadeInDown">Language Learning Adventure</h1>
+            <div class="character-creator">
+                <h2>Create Your Character</h2>
+                <div class="avatar-selection">
+                    <div class="avatar-preview">
+                        <img id="current-avatar" src="https://robohash.org/1?set=set4" alt="Character Avatar">
+                    </div>
+                    <div class="avatar-controls">
+                        <button id="prev-avatar" class="avatar-btn">◀</button>
+                        <button id="next-avatar" class="avatar-btn">▶</button>
+                    </div>
+                </div>
+                <div class="character-form">
+                    <div class="form-group">
+                        <label for="character-name">Character Name:</label>
+                        <input type="text" id="character-name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="learning-level">Prior Knowledge:</label>
+                        <select id="learning-level">
+                            <option value="beginner">Beginner (No Experience)</option>
+                            <option value="intermediate">Intermediate (Some Knowledge)</option>
+                            <option value="advanced">Advanced (Refreshing Skills)</option>
+                        </select>
+                    </div>
+                    <button id="start-adventure" class="primary-btn">Start Adventure</button>
+                </div>
             </div>
-        </header>
+        </div>
+    </div>
+
+    <!-- World Map Screen -->
+    <div id="world-map" class="screen">
+        <div class="map-container">
+            <div class="map-header">
+                <div class="player-info">
+                    <div class="player-avatar">
+                        <img id="player-avatar-img" src="https://robohash.org/1?set=set4" alt="Player Avatar">
+                    </div>
+                    <div class="player-stats">
+                        <h3 id="player-name">Player</h3>
+                        <div class="stats">
+                            <span id="player-level">Level: 1</span>
+                            <span id="player-xp">XP: 0</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="inventory-btn" class="icon-btn">📦</button>
+            </div>
+            
+            <div class="world-map-view">
+                <div class="map-background"></div>
+                
+                <!-- Map Locations -->
+                <div class="map-location" id="greetings-town" data-level="1">
+                    <div class="location-icon">🏙️</div>
+                    <div class="location-name">Greetings Town</div>
+                </div>
+                
+                <div class="map-location" id="food-district" data-level="2">
+                    <div class="location-icon">🍽️</div>
+                    <div class="location-name">Food District</div>
+                </div>
+                
+                <div class="map-location" id="travel-plaza" data-level="3">
+                    <div class="location-icon">🚶</div>
+                    <div class="location-name">Travel Plaza</div>
+                </div>
+                
+                <div class="map-location" id="shopping-market" data-level="4">
+                    <div class="location-icon">🛍️</div>
+                    <div class="location-name">Shopping Market</div>
+                </div>
+                
+                <div class="map-location locked" id="culture-museum" data-level="5">
+                    <div class="location-icon">🏛️</div>
+                    <div class="location-name">Culture Museum</div>
+                </div>
+                
+                <!-- Path connections between locations -->
+                <svg class="map-paths">
+                    <path d="M120,200 C170,180 200,220 250,250" class="path-line active"></path>
+                    <path d="M250,250 C300,280 320,300 380,310" class="path-line"></path>
+                    <path d="M380,310 C440,320 480,330 520,280" class="path-line"></path>
+                    <path d="M520,280 C560,230 580,190 620,150" class="path-line"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <button id="back-to-map" class="icon-btn">🗺️</button>
+            <div class="location-info">
+                <h2 id="current-location">Greetings Town</h2>
+            </div>
+            <div class="player-stats">
+                <span id="game-score">Score: 0</span>
+                <div class="health-bar">
+                    <div class="health-fill"></div>
+                </div>
+            </div>
+        </div>
         
-        <main>
-            <div class="game-scene">
-                <div id="scene-image"></div>
-                <div class="challenge-container">
-                    <h2 id="challenge-title">Challenge</h2>
-                    <p id="challenge-description">Translate the following phrase:</p>
-                    <div id="challenge-content"></div>
+        <div class="scene-container">
+            <div class="scene-background"></div>
+            <div class="character-container">
+                <div class="player-character">
+                    <img id="player-char-img" src="https://robohash.org/1?set=set4" alt="Player">
+                </div>
+                <div class="npc-character">
+                    <img id="npc-img" src="https://robohash.org/2?set=set4" alt="NPC">
                 </div>
             </div>
             
-            <div class="user-input">
+            <div class="dialog-box">
+                <div class="speaker-info">
+                    <span id="speaker-name">NPC</span>
+                </div>
+                <p id="dialog-text">Hello traveler! Welcome to Greetings Town.</p>
+                <div class="dialog-controls">
+                    <button id="continue-dialog" class="dialog-btn">Continue</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="challenge-container hidden">
+            <div class="challenge-header">
+                <h3 id="challenge-title">Translation Challenge</h3>
+                <span id="challenge-points">+10 XP</span>
+            </div>
+            <p id="challenge-description">Translate the following phrase:</p>
+            <div id="challenge-content" class="challenge-phrase">Hello</div>
+            
+            <div class="answer-container">
                 <input type="text" id="answer-input" placeholder="Type your answer here...">
                 <div class="controls">
-                    <button id="submit-btn">Submit</button>
-                    <button id="hint-btn">Hint</button>
-                    <button id="skip-btn">Skip</button>
+                    <button id="submit-btn" class="game-btn">Submit</button>
+                    <button id="hint-btn" class="game-btn">Hint</button>
+                    <button id="skip-btn" class="game-btn">Skip</button>
                 </div>
             </div>
             
             <div id="feedback" class="feedback hidden"></div>
-        </main>
-        
-        <div id="level-complete" class="modal hidden">
-            <div class="modal-content">
-                <h2>Level Complete!</h2>
-                <p>You have earned <span id="points-earned">0</span> points.</p>
-                <button id="next-level-btn">Next Level</button>
+        </div>
+    </div>
+
+    <!-- Level Complete Screen -->
+    <div id="level-complete" class="screen">
+        <div class="level-complete-content">
+            <h2 class="animate__animated animate__bounceIn">Level Complete!</h2>
+            <div class="rewards-container">
+                <div class="xp-reward">
+                    <span class="reward-icon">⭐</span>
+                    <div class="reward-info">
+                        <span class="reward-title">Experience Gained</span>
+                        <span id="xp-earned" class="reward-value">100 XP</span>
+                    </div>
+                </div>
+                <div class="item-reward">
+                    <span class="reward-icon">🎁</span>
+                    <div class="reward-info">
+                        <span class="reward-title">Item Unlocked</span>
+                        <span id="item-earned" class="reward-value">Phrase Book</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-summary">
+                <div class="stat-item">
+                    <span class="stat-label">Correct Answers:</span>
+                    <span id="correct-answers" class="stat-value">4/5</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Hints Used:</span>
+                    <span id="hints-used" class="stat-value">2</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Time Taken:</span>
+                    <span id="time-taken" class="stat-value">1:45</span>
+                </div>
+            </div>
+            <button id="continue-adventure" class="primary-btn animate__animated animate__pulse animate__infinite">Continue Adventure</button>
+        </div>
+    </div>
+    
+    <!-- Inventory Screen -->
+    <div id="inventory-screen" class="screen">
+        <div class="inventory-header">
+            <h2>Inventory</h2>
+            <button id="close-inventory" class="icon-btn">✖</button>
+        </div>
+        <div class="inventory-tabs">
+            <button class="tab-btn active" data-tab="items">Items</button>
+            <button class="tab-btn" data-tab="phrases">Learned Phrases</button>
+            <button class="tab-btn" data-tab="achievements">Achievements</button>
+        </div>
+        <div class="inventory-content">
+            <div id="items-tab" class="tab-content active">
+                <div class="items-grid">
+                    <!-- Items will be added dynamically -->
+                    <div class="inventory-item">
+                        <div class="item-icon">📘</div>
+                        <div class="item-name">Basic Phrasebook</div>
+                    </div>
+                </div>
+            </div>
+            <div id="phrases-tab" class="tab-content">
+                <div class="phrases-list">
+                    <!-- Phrases will be added dynamically -->
+                </div>
+            </div>
+            <div id="achievements-tab" class="tab-content">
+                <div class="achievements-grid">
+                    <!-- Achievements will be added dynamically -->
+                </div>
             </div>
         </div>
     </div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
